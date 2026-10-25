@@ -173,11 +173,14 @@
   <div class="in">
     <div class="head center">
       <span class="eyebrow">Who we've worked with</span>
-      <h2>Some of our clients</h2>
+      <h2 id="clients-h">Some of our clients</h2>
     </div>
-    <ul class="clients rv">
-      <li>Co-op</li><li>Denny's</li><li>KFC</li><li>Mac's</li><li>Northern Savings</li><li>Petro-Canada</li><li>Save-On-Foods</li>
-      <li>Sobeys</li><li>TD Bank</li><li>Canada Post</li><li>Scotiabank</li><li>Walmart</li><li>BC Liquor Distribution</li><li>McDonald's</li>
+  </div>
+  <!-- The list below is the fallback; the live list comes from /api/clients (edited on admin.html). -->
+  <div class="rotator rv" id="rotator" data-dir="left" data-pause="1" aria-labelledby="clients-h">
+    <ul class="rot-track" id="rot-track">
+      <li><span class="chip">Co-op</span></li><li><span class="chip">Denny's</span></li><li><span class="chip">KFC</span></li><li><span class="chip">Mac's</span></li><li><span class="chip">Northern Savings</span></li><li><span class="chip">Petro-Canada</span></li><li><span class="chip">Save-On-Foods</span></li>
+      <li><span class="chip">Sobeys</span></li><li><span class="chip">TD Bank</span></li><li><span class="chip">Canada Post</span></li><li><span class="chip">Scotiabank</span></li><li><span class="chip">Walmart</span></li><li><span class="chip">BC Liquor Distribution</span></li><li><span class="chip">McDonald's</span></li>
     </ul>
   </div>
 </section>
@@ -246,11 +249,50 @@
     })},{threshold:.4});
     nums.forEach(function(n){n.textContent='0';co.observe(n)});
   }
+  clients(still);
   var els=document.querySelectorAll('.rv');
   if(still||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('on')});return;}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.12});
   els.forEach(function(e){io.observe(e)});
 })();
+
+// Client rotator: loads the list saved on the admin page, then loops it sideways.
+function clients(still){
+  var box=document.getElementById('rotator'),track=document.getElementById('rot-track'),h=document.getElementById('clients-h');
+  if(!box||!track)return;
+  function chip(c){
+    var li=document.createElement('li');
+    var el=document.createElement(c.url?'a':'span');
+    el.className='chip'+(c.logo?' has-logo':'');
+    if(c.url){el.href=c.url;el.target='_blank';el.rel='noopener'}
+    if(c.logo){var img=document.createElement('img');img.src=c.logo;img.alt=c.name;img.loading='lazy';img.decoding='async';el.appendChild(img)}
+    else el.textContent=c.name;
+    li.appendChild(el);return li;
+  }
+  function start(){
+    if(still){box.classList.add('static');return}
+    var base=[].slice.call(track.children);
+    if(!base.length)return;
+    // Repeat the set until it is wider than the strip, then double it so the loop is seamless.
+    var guard=0;
+    while(track.scrollWidth<box.clientWidth&&guard++<20) base.forEach(function(li){track.appendChild(li.cloneNode(true))});
+    [].slice.call(track.children).forEach(function(li){var c=li.cloneNode(true);c.setAttribute('aria-hidden','true');c.querySelectorAll('a').forEach(function(a){a.tabIndex=-1});track.appendChild(c)});
+    box.classList.add('go');
+  }
+  fetch('/api/clients').then(function(r){return r.ok?r.json():null}).then(function(d){
+    if(d&&Array.isArray(d.clients)){
+      var shown=d.clients.filter(function(c){return c&&c.name&&!c.hidden});
+      if(shown.length){track.textContent='';shown.forEach(function(c){track.appendChild(chip(c))})}
+      if(h&&d.heading)h.textContent=d.heading;
+      box.style.setProperty('--dur',(+d.speed||40)+'s');
+      box.dataset.dir=d.direction==='right'?'right':'left';
+      box.dataset.pause=d.pauseOnHover===false?'0':'1';
+    }
+  }).catch(function(){}).then(function(){
+    var imgs=[].slice.call(track.querySelectorAll('img'));
+    Promise.all(imgs.map(function(i){return i.complete?0:new Promise(function(r){i.onload=i.onerror=r})})).then(start);
+  });
+}
 </script>
 </body>
 </html>

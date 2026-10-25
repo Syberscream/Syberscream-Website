@@ -133,10 +133,19 @@ section.tight{padding-block:0 96px}
 .step h3{font-size:26px;font-weight:800;margin:8px 0 8px}
 .step p{margin:0;color:var(--sub)}
 
-/* clients */
-.clients{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
-.clients li{background:#fff;border:1px solid var(--line);border-radius:999px;padding:12px 22px;font:700 17px var(--display);letter-spacing:-.01em;color:var(--ink);transition:border-color .2s,color .2s}
-.clients li:hover{border-color:var(--blue);color:var(--blue)}
+/* clients rotator */
+.rotator{overflow:hidden;padding-block:6px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.rot-track{list-style:none;margin:0;padding:4px 0;display:flex;flex-wrap:wrap;justify-content:center;row-gap:12px;max-width:1120px;margin-inline:auto}
+.rot-track li{margin-right:12px;flex:none}
+.rotator.go .rot-track{flex-wrap:nowrap;justify-content:flex-start;width:max-content;max-width:none;animation:rot var(--dur,40s) linear infinite}
+.rotator.go[data-dir=right] .rot-track{animation-direction:reverse}
+.rotator.go[data-pause="1"]:hover .rot-track{animation-play-state:paused}
+@keyframes rot{to{transform:translateX(-50%)}}
+.rotator.static{-webkit-mask-image:none;mask-image:none;padding-inline:20px}
+.chip{display:inline-flex;align-items:center;height:56px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:0 24px;font:700 17px var(--display);letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap;transition:border-color .2s,color .2s}
+a.chip:hover,.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.has-logo{padding:0 20px}
+.chip img{display:block;max-height:34px;max-width:150px;width:auto;height:auto}
 
 /* software */
 .soft{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;background:var(--blue);color:#fff;border-radius:26px;padding:36px 40px;text-decoration:none;transition:transform .3s var(--ease),box-shadow .3s}
@@ -187,14 +196,15 @@ footer b{color:#fff}
   .svc,.lists{grid-template-columns:1fr}
   .lists{padding:24px}
   .hero h1{font-size:44px}
-  .clients li{font-size:15px;padding:10px 16px}
+  .chip{font-size:15px;height:48px;padding:0 18px}
+  .chip img{max-height:28px}
 }
 @media (max-width:380px){
   nav.bar{gap:10px}.brand b{font-size:16px}.brand svg{width:38px;height:38px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .hero-in>*,.ticket,.rv{opacity:1;transform:none}
+  .hero-in>*,.ticket,.rv,.rot-track{opacity:1;transform:none}
   .t-row em{transform:scale(1)}
   .t-stamp{opacity:1;transform:rotate(-6deg)}
 }
