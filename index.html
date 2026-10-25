@@ -252,6 +252,7 @@
 function clients(still){
   var box=document.getElementById('rotator'),track=document.getElementById('rot-track'),h=document.getElementById('clients-h');
   if(!box||!track)return;
+  var pace=40; // pixels per second, set on the admin page
   function chip(c){
     var li=document.createElement('li');
     var el=document.createElement(c.url?'a':'span');
@@ -265,18 +266,20 @@ function clients(still){
     if(still){box.classList.add('static');return}
     var base=[].slice.call(track.children);
     if(!base.length)return;
+    box.classList.add('go'); // one row first, so the widths below are real
     // Repeat the set until it is wider than the strip, then double it so the loop is seamless.
     var guard=0;
     while(track.scrollWidth<box.clientWidth&&guard++<20) base.forEach(function(li){track.appendChild(li.cloneNode(true))});
     [].slice.call(track.children).forEach(function(li){var c=li.cloneNode(true);c.setAttribute('aria-hidden','true');c.querySelectorAll('a').forEach(function(a){a.tabIndex=-1});track.appendChild(c)});
-    box.classList.add('go');
+    // Same on-screen speed however many clients there are: loop time = half the strip width / pace.
+    box.style.setProperty('--dur',Math.max(5,track.scrollWidth/2/pace).toFixed(1)+'s');
   }
   fetch('/api/clients').then(function(r){return r.ok?r.json():null}).then(function(d){
     if(d&&Array.isArray(d.clients)){
       var shown=d.clients.filter(function(c){return c&&c.name&&!c.hidden});
       if(shown.length){track.textContent='';shown.forEach(function(c){track.appendChild(chip(c))})}
       if(h&&d.heading)h.textContent=d.heading;
-      box.style.setProperty('--dur',(+d.speed||40)+'s');
+      pace=+d.speed||40;
       box.dataset.dir=d.direction==='right'?'right':'left';
       box.dataset.pause=d.pauseOnHover===false?'0':'1';
     }

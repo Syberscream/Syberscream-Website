@@ -141,7 +141,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
       </div>
       <div>
         <label class="f" for="speed">Speed <span class="speedv" id="speedv"></span></label>
-        <div class="row-inline"><span class="count">Fast</span><input type="range" id="speed" min="10" max="120" step="5"><span class="count">Slow</span></div>
+        <div class="row-inline"><span class="count">Slow</span><input type="range" id="speed" min="10" max="120" step="5"><span class="count">Fast</span></div>
       </div>
       <div style="align-self:end;padding-bottom:10px">
         <label class="check"><input type="checkbox" id="pause"> Pause when a visitor hovers over it</label>
@@ -215,7 +215,8 @@ input[type=range]{width:100%;accent-color:var(--blue)}
   function fill(){
     $('heading').value=data.heading;$('direction').value=data.direction;$('speed').value=data.speed;$('pause').checked=data.pauseOnHover;speedLabel();
   }
-  function speedLabel(){$('speedv').textContent='· '+data.speed+'s per loop'}
+  // speed = how many pixels the strip moves per second (10 = very slow, 120 = fast)
+  function speedLabel(){var s=data.speed;$('speedv').textContent='· '+(s<=20?'very slow':s<=40?'slow':s<=70?'medium':s<=95?'quick':'fast')}
   $('heading').addEventListener('input',function(){data.heading=this.value;preview();status()});
   $('direction').addEventListener('change',function(){data.direction=this.value;preview();status()});
   $('speed').addEventListener('input',function(){data.speed=+this.value;speedLabel();preview();status()});
@@ -347,7 +348,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
   function preview(){
     $('pvHeading').textContent=data.heading||'Some of our clients';
     var box=$('pvRot'),tr=$('pvTrack');tr.textContent='';
-    box.dataset.dir=data.direction;box.dataset.pause=data.pauseOnHover?'1':'0';box.style.setProperty('--dur',data.speed+'s');
+    box.dataset.dir=data.direction;box.dataset.pause=data.pauseOnHover?'1':'0';
     var shown=data.clients.filter(function(c){return!c.hidden&&c.name.trim()});
     if(!shown.length){box.classList.remove('go');var li=document.createElement('li');li.className='count';li.textContent='No clients shown';tr.appendChild(li);return}
     box.classList.add('go');
@@ -355,6 +356,9 @@ input[type=range]{width:100%;accent-color:var(--blue)}
       if(c.logo){var im=document.createElement('img');im.src=c.logo;im.alt=c.name;el.appendChild(im)}else el.textContent=c.name;li.appendChild(el);return li};
     var set=[];do{shown.forEach(function(c){set.push(c)})}while(set.length<12);
     set.concat(set).forEach(function(c){tr.appendChild(make(c))});
+    var setDur=function(){box.style.setProperty('--dur',Math.max(5,tr.scrollWidth/2/data.speed).toFixed(1)+'s')};
+    setDur();
+    [].forEach.call(tr.querySelectorAll('img'),function(im){if(!im.complete)im.addEventListener('load',setDur)});
   }
 
   // ---------- save ----------
