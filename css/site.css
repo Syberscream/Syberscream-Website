@@ -37,9 +37,9 @@ h1,h2,h3,h4{font-family:var(--display);letter-spacing:-.03em;text-wrap:balance;m
 .glow.b{width:320px;height:320px;background:#FFCE3A;bottom:-160px;left:-80px;opacity:.18;animation:drift 18s ease-in-out infinite alternate-reverse}
 @keyframes drift{to{transform:translate(-80px,60px) scale(1.15)}}
 .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000 30%,transparent);-webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent);pointer-events:none}
-nav.bar{display:flex;align-items:center;gap:22px;padding-block:16px;border-bottom:1px solid var(--navy-line)}
+nav.bar{display:flex;align-items:center;gap:22px;padding-block:12px;border-bottom:1px solid var(--navy-line)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
-.brand b{font:800 19px var(--display);letter-spacing:-.02em}
+.brand .logo-img{height:88px;width:auto;display:block}
 .links{display:flex;gap:22px;font-size:14.5px;color:#B9BFD6}
 .links a{text-decoration:none}.links a:hover{color:#fff}
 
@@ -171,7 +171,8 @@ a.chip:hover,.chip:hover{border-color:var(--blue);color:var(--blue)}
 footer{background:var(--navy);color:#8D94AF;font-size:14px;border-top:1px solid var(--navy-line)}
 footer .in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-block:26px}
 footer b{color:#fff}
-.f-brand{display:inline-flex;align-items:center;gap:10px}
+.f-brand{display:inline-flex;align-items:center;gap:12px}
+.f-brand img{height:44px;width:auto;display:block}
 
 /* responsive */
 @media (max-width:980px){
@@ -191,6 +192,7 @@ footer b{color:#fff}
   .stat b{font-size:32px}
   .map{aspect-ratio:4/3}
   .soft{padding:28px 24px}
+  .brand .logo-img{height:72px}
 }
 @media (max-width:560px){
   .svc,.lists{grid-template-columns:1fr}
@@ -200,7 +202,7 @@ footer b{color:#fff}
   .chip img{max-height:28px}
 }
 @media (max-width:380px){
-  nav.bar{gap:10px}.brand b{font-size:16px}.brand svg{width:38px;height:38px}
+  nav.bar{gap:10px}.brand .logo-img{height:64px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
