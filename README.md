@@ -6,12 +6,12 @@ Moved off the old WordPress host (webhostinghub, which forwarded syberscream.com
 
 ## Files
 
-- `index.html` — the whole site: stats, services, why us and the current special, client rotator, WO Extractor, contact and map
+- `index.html` — the whole site: stats, services, why us, client rotator, WO Extractor, contact and map
 - `admin.html` — password-protected page for editing the client rotator (syberscream.com/admin)
 - `css/site.css` — styles (navy, yellow and blue; Bricolage Grotesque, Geist and Geist Mono fonts from Google Fonts)
 - `src/worker.js` — small Cloudflare Worker: serves the site and the `/api/clients` endpoints the rotator and admin page use
 - `404.html` — page-not-found page
-- `favicon.svg` — the SS stamp icon
+- `img/logo.svg` — the SyberScream Repair Center logo (header, footer, browser tab). It's a small SVG wrapper around a 200×151 WebP, so it can be committed as text
 - `robots.txt`, `sitemap.xml` — for search engines (the admin page is excluded)
 - `wrangler.jsonc` — Cloudflare settings: the site files, the worker, and the `SITE_KV` storage
 - `.assetsignore` — repo-only files kept off the public site (README, config, worker source)
