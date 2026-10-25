@@ -61,6 +61,15 @@
   </div>
 </div>
 
+<div class="stats">
+  <div class="in">
+    <div class="stat"><b data-count="22">22</b><span>Years of experience</span></div>
+    <div class="stat"><b data-count="9900" data-suffix="+">9,900+</b><span>Satisfied customers</span></div>
+    <div class="stat"><b data-count="3">3</b><span>Technicians &amp; workers</span></div>
+    <div class="stat"><b>6 days</b><span>A week, 8 am – 10 pm</span></div>
+  </div>
+</div>
+
 <div class="marquee" aria-hidden="true"><div class="track">
   <span>Hardware repair</span><span>Software repair</span><span>Virus removal</span><span>Spyware removal</span><span>Network installs</span><span>Network cabling</span><span>Network cameras</span><span>POS solutions</span><span>Data recovery</span><span>Backups</span>
   <span>Hardware repair</span><span>Software repair</span><span>Virus removal</span><span>Spyware removal</span><span>Network installs</span><span>Network cabling</span><span>Network cameras</span><span>POS solutions</span><span>Data recovery</span><span>Backups</span>
@@ -149,6 +158,14 @@
       <div class="step rv" style="--i:1"><span class="num">02</span><h3>Trusted</h3><p>Clients keep coming back — for preventive maintenance and for help from technicians they know.</p></div>
       <div class="step rv" style="--i:2"><span class="num">03</span><h3>Guaranteed</h3><p>We stand behind our work. If the same problem comes back, we fix it again at no charge.</p></div>
     </div>
+    <div class="special rv">
+      <div class="sp-tag">Current special</div>
+      <div class="sp-body">
+        <h3>A special discount on any service of $500 or more.</h3>
+        <p>We value our clients — ask about it when you book, and put the savings toward your tech solution.</p>
+      </div>
+      <a class="btn btn-y" href="tel:+12506153203">Ask about it</a>
+    </div>
   </div>
 </section>
 
@@ -192,6 +209,9 @@
       <div class="cbox"><span>Location</span><b>Terrace, BC</b><em>Canada</em></div>
       <div class="cbox"><span>Hours</span><b>Mon–Sat</b><em>8:00 am – 10:00 pm</em></div>
     </div>
+    <div class="map">
+      <iframe title="Map of Terrace, BC" src="https://maps.google.com/maps?q=Terrace%2C%20BC&amp;t=m&amp;z=13&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
   </div>
 </section>
 
@@ -215,6 +235,17 @@
 (function(){
   var y=document.getElementById('yr'); if(y) y.textContent=new Date().getFullYear();
   var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Count the stats up from zero the first time they come into view.
+  var fmt=function(n){return n.toLocaleString('en-CA')};
+  var nums=document.querySelectorAll('[data-count]');
+  if(!still&&'IntersectionObserver' in window){
+    var co=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return; co.unobserve(e.target);
+      var el=e.target,to=+el.dataset.count,suf=el.dataset.suffix||'',t0=null,dur=1400;
+      (function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/dur,1),v=Math.round(to*(1-Math.pow(1-p,3)));el.textContent=fmt(v)+(p===1?suf:'');if(p<1)requestAnimationFrame(step);})(performance.now());
+    })},{threshold:.4});
+    nums.forEach(function(n){n.textContent='0';co.observe(n)});
+  }
   var els=document.querySelectorAll('.rv');
   if(still||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('on')});return;}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.12});

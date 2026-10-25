@@ -71,6 +71,26 @@ nav.bar{display:flex;align-items:center;gap:22px;padding-block:16px;border-botto
 .t-stamp{border:2.5px solid var(--mint);color:var(--mint);font:800 15px var(--display);letter-spacing:.1em;padding:3px 12px;border-radius:8px;transform:rotate(-6deg) scale(2);opacity:0;animation:stamp 7s infinite}
 @keyframes stamp{0%,42%{opacity:0;transform:rotate(-6deg) scale(2)}48%,88%{opacity:1;transform:rotate(-6deg) scale(1)}100%{opacity:0}}
 
+/* stats */
+.stats{background:var(--navy-2);color:#fff;border-top:1px solid var(--navy-line)}
+.stats .in{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:26px 18px;border-left:1px solid var(--navy-line)}
+.stat:first-child{border-left:0;padding-left:0}
+.stat b{display:block;font:800 40px/1 var(--display);letter-spacing:-.03em;color:var(--yellow);font-variant-numeric:tabular-nums}
+.stat span{display:block;color:#A6ADC6;font-size:14px;margin-top:8px}
+
+/* special */
+.special{margin-top:24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;background:var(--navy);color:#fff;border-radius:22px;padding:26px 28px;position:relative;overflow:hidden}
+.special::after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:var(--yellow);opacity:.12;filter:blur(50px);right:-60px;top:-90px;pointer-events:none}
+.sp-tag{font:700 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;background:var(--yellow);color:var(--navy);border-radius:8px;padding:8px 12px;transform:rotate(-3deg)}
+.sp-body{flex:1;min-width:240px}
+.special h3{font-size:24px;font-weight:800;line-height:1.15}
+.special p{margin:6px 0 0;color:#B9BFD6}
+
+/* map */
+.map{margin-top:18px;border-radius:22px;overflow:hidden;border:1px solid var(--navy-line);background:var(--navy-2);aspect-ratio:21/8}
+.map iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(.3) contrast(1.05)}
+
 /* marquee */
 .marquee{background:var(--yellow);color:var(--navy);overflow:hidden;white-space:nowrap;padding-block:14px;font:700 15px var(--mono);letter-spacing:.06em;text-transform:uppercase}
 .track{display:inline-flex;animation:slide 36s linear infinite}
@@ -156,6 +176,11 @@ footer b{color:#fff}
   section{padding-block:72px}
   section.tight{padding-block:0 72px}
   .why,.cgrid{grid-template-columns:1fr}
+  .stats .in{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3){border-left:0;padding-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--navy-line)}
+  .stat b{font-size:32px}
+  .map{aspect-ratio:4/3}
   .soft{padding:28px 24px}
 }
 @media (max-width:560px){
