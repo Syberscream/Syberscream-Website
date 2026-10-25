@@ -1,5 +1,11 @@
 README.md
 wrangler.jsonc
 CNAME
+src
+node_modules
+package.json
+package-lock.json
+.wrangler
+.dev.vars
 .git
 .github
