@@ -3,7 +3,7 @@
   --navy:#0E1325; --navy-2:#171C31; --navy-line:#262C44; --paper:#F3F4F7;
   --ink:#0E1325; --sub:#545B73; --faint:#8A90A6; --line:#DCDFE8;
   --blue:#2C4FE6; --blue-2:#6A86FF; --blue-soft:#E6EAFD; --yellow:#FFCE3A; --mint:#1F9E6E;
-  --display:"Bricolage Grotesque","Geist",ui-sans-serif,system-ui,sans-serif;
+  --display:"Russo One","Geist",ui-sans-serif,system-ui,sans-serif;
   --body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
   --ease:cubic-bezier(.2,.8,.2,1);
@@ -14,7 +14,9 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
 .in{max-width:1120px;margin:0 auto;padding-inline:20px;position:relative}
-h1,h2,h3,h4{font-family:var(--display);letter-spacing:-.03em;text-wrap:balance;margin:0}
+h1,h2,h3,h4{font-family:var(--display);font-weight:800;letter-spacing:0;text-wrap:balance;margin:0}
+/* Russo One has one weight; headings ask for 800 so a fallback font stays bold, and the browser must not fake-bolden Russo */
+body{font-synthesis-weight:none}
 .eyebrow{font:600 11.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px}
 .eyebrow::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--yellow)}
 .btn{display:inline-flex;align-items:center;gap:8px;font:600 15px var(--body);text-decoration:none;border-radius:12px;padding:13px 20px;border:1.5px solid transparent;transition:background .15s,border-color .15s,transform .15s;white-space:nowrap}
@@ -45,7 +47,7 @@ nav.bar{display:flex;align-items:center;gap:22px;padding-block:12px;border-botto
 
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:72px 88px}
 .hero .eyebrow{color:#A6ADC6;margin-bottom:18px}
-.hero h1{font-size:clamp(44px,6.6vw,80px);line-height:.96;font-weight:800;letter-spacing:-.045em}
+.hero h1{font-size:clamp(40px,6vw,72px);line-height:1.02;font-weight:800;letter-spacing:-.01em}
 .hero h1 em{font-style:normal;color:var(--yellow);display:inline-block}
 .hero .lede{color:#B9BFD6;font-size:19px;max-width:34ch;margin:22px 0 30px}
 .hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
@@ -103,7 +105,7 @@ section{padding-block:96px}
 section.tight{padding-block:0 96px}
 .head{max-width:660px;margin-bottom:44px}
 .head .eyebrow{color:var(--sub);margin-bottom:14px}
-.head h2{font-size:clamp(34px,4.6vw,52px);line-height:1;font-weight:800}
+.head h2{font-size:clamp(30px,4.2vw,46px);line-height:1.05;font-weight:800}
 .head .sub{color:var(--sub);font-size:18px;margin:16px 0 0}
 .center{text-align:center;margin-inline:auto}
 
