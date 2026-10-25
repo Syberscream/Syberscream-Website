@@ -8,7 +8,7 @@ Moved off the old WordPress host (webhostinghub, which forwarded syberscream.com
 
 - `index.html` — the whole site: stats, services, why us, client rotator, WO Extractor, contact and map
 - `admin.html` — password-protected page for editing the client rotator (syberscream.com/admin)
-- `css/site.css` — styles (navy, yellow and blue; Bricolage Grotesque, Geist and Geist Mono fonts from Google Fonts)
+- `css/site.css` — styles (navy, yellow and blue; Russo One for headings, Geist and Geist Mono for text from Google Fonts)
 - `src/worker.js` — small Cloudflare Worker: serves the site and the `/api/clients` endpoints the rotator and admin page use
 - `404.html` — page-not-found page
 - `img/logo.svg` — the SyberScream Repair Center logo (header, footer, browser tab). It's a small SVG wrapper around a 200×151 WebP, so it can be committed as text
@@ -64,4 +64,4 @@ Then open http://localhost:8787 and http://localhost:8787/admin. Don't commit `.
 
 This repository is not open source. No licence is granted to copy, modify or distribute the code, design or text without written permission from SyberScream.
 
-Client names are listed as past clients only; their names and trademarks belong to their owners. Fonts: Geist and Bricolage Grotesque (SIL OFL 1.1).
+Client names are listed as past clients only; their names and trademarks belong to their owners. Fonts: Russo One, Geist and Geist Mono (SIL OFL 1.1).
