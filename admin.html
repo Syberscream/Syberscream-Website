@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Site admin — SyberScream</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="img/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&display=swap">
 <link rel="stylesheet" href="css/site.css">
@@ -14,6 +14,7 @@ body{background:var(--paper)}
 .abar{background:var(--navy);color:#fff;border-bottom:1px solid var(--navy-line)}
 .abar .in{display:flex;align-items:center;gap:14px;padding-block:14px}
 .abar .brand{margin-right:auto}
+.abar .logo-img{height:46px;width:auto;display:block}
 .abar .tag{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#A6ADC6;border:1px solid var(--navy-line);border-radius:999px;padding:5px 10px}
 .linkbtn{background:none;border:0;color:#B9BFD6;font:600 14px var(--body);cursor:pointer;padding:6px}
 .linkbtn:hover{color:#fff}
@@ -71,7 +72,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 [hidden]{display:none!important}
 .linkbtn{white-space:nowrap;text-decoration:none}
 @media (max-width:520px){
-  .abar .brand b,.abar .tag{display:none}
+  .abar .tag{display:none}
   .savebar .in{gap:8px;padding-block:10px}
   .savebar .status{font-size:13px}
   .savebar .btn{padding:10px 12px;font-size:14px}
@@ -94,9 +95,8 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 
 <header class="abar">
   <div class="in">
-    <a class="brand" href="/" aria-label="SyberScream home">
-      <svg viewBox="0 0 136 136" width="38" height="38" aria-hidden="true"><circle cx="68" cy="68" r="64" fill="none" stroke="#6A86FF" stroke-width="7"/><circle cx="68" cy="68" r="51.2" fill="none" stroke="#6A86FF" stroke-width="2.6"/><text x="68" y="78" text-anchor="middle" fill="#FFFFFF" font-family="Bricolage Grotesque, Geist, system-ui, sans-serif" font-weight="800" font-size="40" letter-spacing="-1">SS</text><path d="M52 94 Q60 88 68 94 T84 94" fill="none" stroke="#FFCE3A" stroke-width="5.5" stroke-linecap="round"/></svg>
-      <b>SyberScream</b>
+    <a class="brand" href="/" aria-label="SyberScream Repair Center home">
+      <img class="logo-img" src="img/logo.svg" alt="SyberScream Repair Center" width="200" height="151">
     </a>
     <span class="tag">Admin</span>
     <a class="linkbtn" href="/#clients" target="_blank" rel="noopener">View site ↗</a>
