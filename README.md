@@ -2,7 +2,7 @@
 
 The website for SyberScream (syberscream.com): computer repair, virus and spyware removal, networks, cabling, cameras and POS systems. Based in Terrace, BC.
 
-Moved off the old WordPress host (which forwarded syberscream.com to vital2tech.com) and rebuilt as a plain static site in the same look as woextractor.com.
+Moved off the old WordPress host (webhostinghub, which forwarded syberscream.com to vital2tech.com) and rebuilt as a plain static site in the same look as woextractor.com.
 
 ## Files
 
@@ -10,19 +10,20 @@ Moved off the old WordPress host (which forwarded syberscream.com to vital2tech.
 - `css/site.css` — styles (navy, yellow and blue; Bricolage Grotesque, Geist and Geist Mono fonts from Google Fonts)
 - `404.html` — page-not-found page
 - `favicon.svg` — the SS stamp icon
-- `CNAME` — the custom domain, `syberscream.com`
 - `robots.txt`, `sitemap.xml` — for search engines
+- `wrangler.jsonc` — Cloudflare settings: serve this folder as the site, use `404.html` for missing pages
+- `.assetsignore` — repo-only files kept off the public site (README, config)
+- `CNAME` — not used by Cloudflare; kept in case the site ever moves to GitHub Pages
 
-No build step, no server, no database. Edit the HTML and push.
+No build step, no server, no database. Edit the HTML and push to `main`; Cloudflare redeploys in about a minute.
 
-## Going live (GitHub Pages)
+## Hosting
 
-1. Repo **Settings → Pages**: Source = *Deploy from a branch*, Branch = `main`, folder `/ (root)`.
-2. Custom domain: `syberscream.com` (already in `CNAME`). Tick **Enforce HTTPS** once the certificate is ready.
-3. At the domain registrar, remove the old forwarding to vital2tech.com and set DNS:
-   - `A` records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - `CNAME` for `www`: `syberscream.github.io`
-4. Leave any `MX` records alone if email runs on the domain.
+- **Site**: Cloudflare Workers project `syberscream-website` (Compute → Workers & Pages), connected to this repo's `main` branch. Deploy command `npx wrangler deploy`, no build command.
+- **Domains**: `syberscream.com` and `www.syberscream.com` are custom domains on that project.
+- **Preview**: `syberscream-website.syberscream.workers.dev`
+- **DNS**: Cloudflare (nameservers `craig.ns.cloudflare.com`, `sharon.ns.cloudflare.com`), set at the registrar, Penguin Web Hosting.
+- **Email**: Google Workspace. Keep the MX, SPF, DMARC and google-site-verification records in Cloudflare DNS.
 
 ## Contact details on the site
 
